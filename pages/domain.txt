@@ -1,4 +1,4 @@
-nxlab.ndjs.net
+nxlab.ndjp.net
 nxlab.zone.id
 nxlab.ddns-ip.net
 nxlab.zeabur.app
