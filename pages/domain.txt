@@ -4,3 +4,4 @@ nxlab.zone.id
 nxlab.ddnsfree.com
 nxlab.casacam.net
 nxlab.ddns.net
+nxlab.ndjs.net
