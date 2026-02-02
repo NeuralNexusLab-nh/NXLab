@@ -35,6 +35,10 @@ app.get("/domain", (req, res) => {
   res.sendFile(path.join(__dirname, "pages", "domain.txt"));
 });
 
+app.all("*", (req, res) => {
+  res.status(404).send("ERROR 404");
+});
+
 app.listen(process.env.PORT, () => {
   console.log("NeuralNexusLab (NXLab) core online!");
 });
