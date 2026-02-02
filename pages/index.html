@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NeuralNexusLab // Cyber Intelligence Division</title>
+
+<link rel="icon" href="favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<style>
+/* ================= ROOT ================= */
+:root{
+  --bg0:#000;
+  --bg1:#02060a;
+  --bg2:#050f18;
+  --neon-green:#00ff99;
+  --neon-blue:#00ccff;
+  --neon-cyan:#33ffee;
+  --soft:#8fcfc0;
+  --text:#cfeee3;
+  --glass:rgba(255,255,255,0.04);
+  --glass-strong:rgba(255,255,255,0.07);
+  --border:rgba(0,255,153,0.12);
+  --radius:14px;
+  --max-w:1200px;
+}
+
+/* ================= RESET ================= */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:"Share Tech Mono", monospace;
+  color:var(--text);
+  background:
+    radial-gradient(900px 500px at 8% 10%, rgba(0,40,30,0.35), transparent),
+    radial-gradient(700px 400px at 92% 90%, rgba(0,20,60,0.25), transparent),
+    linear-gradient(180deg,var(--bg0),var(--bg2));
+  -webkit-font-smoothing:antialiased;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:26px;
+  padding:24px;
+  overflow-x:hidden;
+}
+
+/* ================= MATRIX BACKGROUND ================= */
+#matrix {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.14;
+  filter: blur(0.8px) contrast(120%);
+}
+
+/* ================= GENERAL PANELS ================= */
+.panel{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px;
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.7),
+    inset 0 0 30px rgba(0,255,180,0.02);
+  backdrop-filter: blur(6px);
+}
+
+/* ================= HEADER ================= */
+header{
+  width:100%;
+  max-width:var(--max-w);
+  position:relative;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:20px 22px;
+  border-radius:16px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
+  border:1px solid rgba(0,255,153,0.15);
+  box-shadow:0 12px 40px rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.logo-badge{
+  width:64px;
+  height:64px;
+  border-radius:12px;
+  background:
+    linear-gradient(135deg, rgba(0,255,153,0.18), rgba(0,204,255,0.15)),
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 60%);
+  border:1px solid rgba(0,255,153,0.35);
+  box-shadow:
+    0 0 24px rgba(0,255,153,0.25),
+    inset 0 0 18px rgba(0,255,180,0.25);
+  display:grid;
+  place-items:center;
+  color:var(--neon-green);
+  font-weight:900;
+  font-size:1.25rem;
+  letter-spacing:1px;
+}
+
+header h1{
+  font-size:1.9rem;
+  color:var(--neon-green);
+  text-shadow:
+    0 0 12px rgba(0,255,153,0.6),
+    0 0 22px rgba(0,204,255,0.4);
+  letter-spacing:1.2px;
+}
+
+.header-meta{
+  margin-left:auto;
+  text-align:right;
+  color:var(--soft);
+  font-size:0.9rem;
+  line-height:1.4;
+}
+.header-meta b{
+  color:var(--neon-blue);
+  font-weight:700;
+}
+
+/* ================= MAIN LAYOUT ================= */
+main{
+  width:100%;
+  max-width:var(--max-w);
+  z-index:2;
+  display:grid;
+  grid-template-columns:1fr 360px;
+  gap:22px;
+}
+@media (max-width:980px){
+  main{grid-template-columns:1fr}
+}
+
+/* ================= HERO ================= */
+.hero{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  text-align:center;
+}
+
+.hero h2{
+  color:var(--neon-green);
+  font-size:1.7rem;
+  text-shadow:
+    0 0 10px rgba(0,255,153,0.6),
+    0 0 20px rgba(0,204,255,0.4);
+}
+
+.hero p.subtitle{
+  color:var(--soft);
+  font-size:1rem;
+  max-width:680px;
+  line-height:1.6;
+}
+
+/* ================= TERMINAL ================= */
+.terminal{
+  margin-top:12px;
+  width:100%;
+  max-width:760px;
+  text-align:left;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,0,0,0.75));
+  border:1px solid rgba(0,255,153,0.18);
+  padding:14px 16px;
+  border-radius:12px;
+  color:#aaffdd;
+  box-shadow:
+    inset 0 0 40px rgba(0,0,0,0.7),
+    0 0 30px rgba(0,255,180,0.05);
+  font-size:0.95rem;
+  position:relative;
+  overflow:hidden;
+}
+
+.terminal::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.02),
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  pointer-events:none;
+  mix-blend-mode:overlay;
+}
+
+.typed{
+  display:inline-block;
+  min-height:1.2em;
+  white-space:pre-wrap;
+}
+.cursor{
+  display:inline-block;
+  width:10px;
+  background:var(--neon-green);
+  margin-left:6px;
+  animation:blink 1s steps(2,start) infinite;
+  vertical-align:bottom;
+}
+@keyframes blink{50%{opacity:0}}
+
+/* ================= SECTION TITLES ================= */
+.section-title{
+  color:var(--neon-blue);
+  font-size:1.1rem;
+  margin-bottom:10px;
+  text-shadow:0 0 8px rgba(0,204,255,0.5);
+}
+
+/* ================= LINK BUTTONS ================= */
+.links button{
+  width:100%;
+  display:block;
+  margin-bottom:10px;
+  padding:11px 14px;
+  border-radius:11px;
+  border:1px solid rgba(0,255,153,0.18);
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.65));
+  color:var(--neon-blue);
+  font-weight:700;
+  font-size:0.95rem;
+  cursor:pointer;
+  text-align:left;
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    border-color .18s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+.links button::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(120deg,
+      transparent 30%,
+      rgba(0,255,180,0.15),
+      transparent 70%);
+  opacity:0;
+  transition:opacity .18s ease;
+}
+
+.links button:hover{
+  transform:translateY(-4px) scale(1.01);
+  border-color:rgba(0,255,180,0.5);
+  box-shadow:
+    0 12px 34px rgba(0,255,180,0.15),
+    inset 0 0 20px rgba(0,255,180,0.08);
+}
+.links button:hover::after{opacity:1}
+
+/* ================= ASIDE ================= */
+aside .panel{
+  position:sticky;
+  top:28px;
+}
+
+/* ================= ABOUT TEXT ================= */
+.about-text{
+  color:var(--soft);
+  font-size:0.95rem;
+  line-height:1.7;
+}
+
+/* ================= CONTACT ================= */
+.contact a{
+  color:var(--neon-blue);
+  text-decoration:none;
+  font-weight:700;
+}
+.contact a:hover{text-decoration:underline}
+
+/* ================= DIVIDERS ================= */
+hr{
+  border:none;
+  border-top:1px solid rgba(0,255,153,0.12);
+  margin:14px 0;
+}
+
+/* ================= FOOTER ================= */
+footer{
+  width:100%;
+  max-width:var(--max-w);
+  text-align:center;
+  color:var(--soft);
+  font-size:0.9rem;
+  z-index:2;
+  padding:12px 8px;
+  opacity:0.9;
+}
+
+/* ================= GLITCH EFFECT ================= */
+.glitch{
+  position:relative;
+  display:inline-block;
+}
+.glitch::before,
+.glitch::after{
+  content:attr(data-text);
+  position:absolute;
+  left:0;
+  top:0;
+  opacity:0.75;
+}
+.glitch::before{
+  color:#00ff99;
+  animation:glitch1 2.5s infinite linear alternate-reverse;
+}
+.glitch::after{
+  color:#00ccff;
+  animation:glitch2 3s infinite linear alternate-reverse;
+}
+@keyframes glitch1{
+  0%{transform:translate(0,0)}
+  20%{transform:translate(-1px,1px)}
+  40%{transform:translate(-2px,-1px)}
+  60%{transform:translate(1px,2px)}
+  80%{transform:translate(2px,-1px)}
+  100%{transform:translate(0,0)}
+}
+@keyframes glitch2{
+  0%{transform:translate(0,0)}
+  20%{transform:translate(1px,-1px)}
+  40%{transform:translate(2px,1px)}
+  60%{transform:translate(-1px,-2px)}
+  80%{transform:translate(-2px,1px)}
+  100%{transform:translate(0,0)}
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width:640px){
+  header h1{font-size:1.45rem}
+  .logo-badge{width:52px;height:52px;font-size:1.05rem}
+  .hero h2{font-size:1.4rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="matrix"></canvas>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="logo">
+    <div class="logo-badge">NNL</div>
+    <h1 class="glitch" data-text="NeuralNexusLab">NeuralNexusLab</h1>
+  </div>
+  <div class="header-meta">
+    <div><b>Cyber Intelligence Division</b></div>
+    <div>Offense Research • Exploit Engineering • AI Systems</div>
+  </div>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main>
+
+  <!-- ===== LEFT: HERO / MAIN CONTENT ===== -->
+  <section class="panel hero">
+
+    <h2>Advanced Cyber Research & AI Security Engineering</h2>
+    <p class="subtitle">
+      NeuralNexusLab is an independent research collective focused on offensive security,
+      vulnerability discovery, exploit development, and next-generation AI systems.
+      We build tools, publish models, and break things before adversaries do.
+    </p>
+
+    <!-- ===== TERMINAL ===== -->
+    <div class="terminal" aria-live="polite">
+      <div><strong>$</strong> <span id="typed" class="typed"></span><span class="cursor" aria-hidden="true"></span></div>
+      <div style="margin-top:10px;color:rgba(180,255,220,0.6);font-size:0.85rem;">
+        Active domains: exploit research • AI models • red-team tooling • experimental platforms
+      </div>
+    </div>
+
+    <br>
+
+    <!-- ===== PROJECT LINKS ===== -->
+    <div class="links" style="width:100%;max-width:720px;text-align:left;">
+      <p class="section-title">Special Projects</p>
+      <button onclick="window.open('https://zelfaz.nethacker.cloud/')">Zelfa — AI Conversation Web App</button>
+      <button onclick="window.open('https://sqlegend.nethacker.cloud/')">SQLegend — Free SQL Server Platform</button>
+      <button onclick="window.open('https://pixelwar.nethacker.cloud/')">Pixel War — Multiplayer Canvas Arena</button>
+
+      <br>
+      <p class="section-title">AI Models</p>
+      <button onclick="window.open('https://ollama.com/NeuralNexusLab/Auralexity')">Auralexity — NeuralNexusLab Model</button>
+      <button onclick="window.open('https://ollama.com/NeuralNexusLab/CodeXor')">CodeXor — Programming-Focused LLM</button>
+      <button onclick="window.open('https://ollama.com/NeuralNexusLab/HacKing')">HacKing — Offensive Security AI</button>
+      <button onclick="window.open('https://scratch.mit.edu/projects/1255391378/')">chatIFT — AI Chatbot on Scratch</button>
+    </div>
+
+  </section>
+
+  <!-- ===== RIGHT: ABOUT / CONTACT ===== -->
+  <aside>
+    <div class="panel">
+
+      <h3 class="section-title">About NeuralNexusLab</h3>
+      <p class="about-text">
+        NeuralNexusLab is a cyber research organization specializing in web application security,
+        exploit development, vulnerability research, and artificial intelligence systems.
+        Our work focuses on uncovering real-world attack surfaces, publishing technical findings,
+        building offensive tooling, and advancing open-source AI models.
+        <br><br>
+        We believe that security is built through understanding systems deeply enough to break them,
+        responsibly and transparently.
+      </p>
+
+      <div class="links" style="margin-top:12px;">
+        <button onclick="window.open('https://hackerone.com/neuralnexuslab?type=user')">HackerOne Profile</button>
+        <button onclick="window.open('https://ollama.com/NeuralNexusLab')">Ollama Models Hub</button>
+        <button onclick="window.open('https://github.com/NeuralNexusLab-nh/')">GitHub Organization</button>
+        <button onclick="window.open('https://www.youtube.com/@NeuralNexusLab-Nh')">YouTube Channel</button>
+        <button onclick="window.open('https://www.instagram.com/NeuralNexusLab')">Instagram</button>
+        <button onclick="window.open('https://scratch.mit.edu/users/DeepIRT/')">Scratch Profile</button>
+      </div>
+
+      <hr>
+
+      <div class="contact">
+        <h4 style="color:var(--neon-green);margin-bottom:6px;">Contact</h4>
+        <p style="color:var(--soft);margin-bottom:8px;font-size:0.95rem;">
+          <a href="mailto:mail@nethacker.cloud">mail@nethacker.cloud</a><br>
+          <a href="mailto:neuralnexuslab@hotmail.com">neuralnexuslab@hotmail.com</a>
+        </p>
+        <p style="color:var(--soft);font-size:0.85rem;">
+          © 2025 NeuralNexusLab. All rights reserved.
+        </p>
+      </div>
+
+    </div>
+  </aside>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  Copyleft NeuralNexusLab | Built for offensive research, defensive reality, and future systems.
+</footer>
+
+<script>
+/* ================= MATRIX EFFECT ================= */
+(function matrixInit(){
+  const canvas=document.getElementById('matrix');
+  const ctx=canvas.getContext('2d');
+  let w,h,cols,ypos;
+
+  function reset(){
+    w=canvas.width=innerWidth;
+    h=canvas.height=innerHeight;
+    cols=Math.floor(w/16)+1;
+    ypos=Array(cols).fill(0);
+  }
+
+  function matrixFrame(){
+    ctx.fillStyle='rgba(0,0,0,0.08)';
+    ctx.fillRect(0,0,w,h);
+    ctx.fillStyle='#00ff99';
+    ctx.font='12pt monospace';
+    for(let i=0;i<ypos.length;i++){
+      const text=String.fromCharCode(33+Math.random()*94);
+      ctx.fillText(text,i*16,ypos[i]*16);
+      if(ypos[i]*16>h&&Math.random()>0.975) ypos[i]=0;
+      ypos[i]++;
+    }
+    requestAnimationFrame(matrixFrame);
+  }
+
+  reset();
+  matrixFrame();
+  addEventListener('resize',reset);
+})();
+
+/* ================= TERMINAL TYPING ================= */
+(function typing(){
+  const lines=[
+    'Initializing NeuralNexusLab core modules...',
+    'Loading exploit research frameworks...',
+    'Deploying AI inference pipelines...',
+    'Establishing secure research channels...',
+    'System status: OPERATIONAL.',
+    'Welcome to NeuralNexusLab.'
+  ];
+  const el=document.getElementById('typed');
+  let li=0,pos=0;
+
+  function type(){
+    if(li>=lines.length){
+      li=0;
+      setTimeout(()=>{el.textContent='';pos=0;},2600);
+      return setTimeout(type,3000);
+    }
+    const cur=lines[li];
+    el.textContent=cur.slice(0,pos);
+    pos++;
+    if(pos<=cur.length){
+      setTimeout(type,50+Math.random()*70);
+    }else{
+      li++;
+      pos=0;
+      setTimeout(type,900);
+    }
+  }
+  setTimeout(type,800);
+})();
+</script>
+
+</body>
+</html>
