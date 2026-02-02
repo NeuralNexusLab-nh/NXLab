@@ -31,9 +31,8 @@ app.get("/time", (req, res) => {
   res.send(new Date());
 });
 
-app.get("/timestamp", (req, res) => {
-  res.set("Content-Type", "text/plain");
-  res.send(Date.now());
+app.get("/domain", (req, res) => {
+  res.sendFile(path.join(__dirname, "pages", "domain.txt"));
 });
 
 app.listen(process.env.PORT, () => {
