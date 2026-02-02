@@ -1,2 +1,6 @@
 nxlab.zeabur.app
 nxlab.ddns-ip.net
+nxlab.zone.id
+nxlab.ddnsfree.com
+nxlab.casacam.net
+nxlab.ddns.net
