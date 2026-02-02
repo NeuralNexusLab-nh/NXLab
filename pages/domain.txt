@@ -1,0 +1,2 @@
+nxlab.zeabur.app
+nxlab.ddns-ip.net
