@@ -7,3 +7,4 @@ nxlab.ddnsfree.com
 nxlab.casacam.net
 nxlab.ddns.net
 nx-lab.ndjp.net
+nxlab.isroot.in
